@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Python内存泄露问题</title>
+<link rel="shortcut icon" href="favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<!-- Bootstrap css -->
+<link type="text/css" rel='stylesheet' href="css/bootstrap.min.css">
+<!-- End Bootstrap css -->
+<!-- 马克飞象 -->
+<link href='css/mark.css' rel='stylesheet'>
+<!-- end马克飞象 -->
+<link type="text/css" data-themecolor="default" rel='stylesheet' href="css/main-default.css">
+</head>
+<body>
+<div class="mask-l" style="background-color: #fff; width: 100%; height: 100%; position: fixed; top: 0; left:0; z-index: 9999999;"></div>
+<!-- 页面导航栏模块 -->
+<header>
+    <div class="container b-header__box b-relative">
+        <div class="b-header-r b-right b-header-r--icon">
+            <div class="b-top-nav-show-slide f-top-nav-show-slide b-right j-top-nav-show-slide">
+                <i class="fa fa-align-justify"></i>
+            </div>
+            <nav class="b-top-nav f-top-nav b-right j-top-nav">
+                <ul class="b-top-nav__1level_wrap">
+                    <li class="b-top-nav__1level f-top-nav__1level is-active-top-nav__1level f-primary-b">
+                        <a href="index.html"><i class="fa fa-home b-menu-1level-ico"></i>首页 
+                            <span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span>
+                        </a>  
+                    </li>
+
+                    <li class="b-top-nav__1level f-top-nav__1level f-primary-b">
+                        <a href="#"><i class="fa fa-code b-menu-1level-ico"></i>博客文章列表
+                            <span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="b-top-nav__1level f-top-nav__1level f-primary-b">
+                        <a href="#"><i class="fa fa-folder-open b-menu-1level-ico"></i>联系我
+                            <span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<!-- end页面导航栏模块 -->
+
+<!-- <div class="j-menu-container"></div>
+ -->
+<!-- 页面标题模块 -->
+<div class="b-inner-page-header f-inner-page-header">
+  <div class="b-inner-page-header__content">
+    <div class="container">
+      <h1 class="f-primary-l c-default">Python内存泄露问题</h1>
+    </div>
+  </div>
+</div>
+<!-- end页面标题模块 -->
+
+<!-- 页面内容模块 -->
+<div class="l-main-container">
+    <div class="l-inner-page-container">
+        <div class="container">
+            <div class="row">
+                <!-- 文章展示版块 -->
+                <div class="col-md-9 col-md-push-3">
+                    <div class="b-blog-listing__block">
+                    <!-- 头部图片 -->
+                    <div class="b-blog-listing__block-top">
+                    </div>
+                    <!-- end头部图片 -->
+                    <div class="b-infoblock-with-icon b-blog-listing__infoblock">
+                      <a href="#" class="b-infoblock-with-icon__icon f-infoblock-with-icon__icon fade-in-animate hidden-xs"> 
+                          <i class="fa fa-pencil"></i>
+                      </a>
+                      <div class="b-infoblock-with-icon__info f-infoblock-with-icon__info">
+                        <a href="#" class="f-infoblock-with-icon__info_title b-infoblock-with-icon__info_title f-primary-l b-title-b-hr f-title-b-hr">
+                            Python内存泄露问题
+                        </a>
+                        <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text f-primary-b b-blog-listing__pretitle">
+                              作者 <a href="#" class="f-more">Edpzou</a> 标签 <a href="#" class="f-more">日常问题</a>, <a href="#" class="f-more">写于</a> 2017-11-08
+                        </div>
+                        <div id='preview-contents' class='note-content'>
+                                                
+                                            
+
+
+
+                        <h2 id="内存泄露">内存泄露</h2>
+
+                        <p>内存泄露问题，需要长时间运行的程序或者定时运行的程序才会冒出来的问题，如今的内存已经足够挥霍，但是还是经不起折腾。正所谓富不过三代，要看代码是否有内存泄露问题，跑它一天试试。</p>
+
+
+
+                        <h3 id="内存泄露爆发前一个礼拜">内存泄露爆发前一个礼拜</h3>
+
+                        <p>一个项目需用同步不同数据库的数据，从Oracle到GP,在保证数据不会丢失的情况下和及时同步的双重前提下。用了我们公司内部自己编写的同步程序Ladder，只需配置好连接参数，表关系映射即可，所以初期这个同步任务很快就运行起来了。</p>
+
+
+
+                        <h3 id="内存泄露爆发前3天">内存泄露爆发前3天</h3>
+
+                        <p>随之而来的问题，同步任务老是中断，不能稳定运行。中断时间为凌晨一点左右，第二天重启又可以正常运行。首先想到的是查看日志，一天的日志文件很大，但是就觉得这个日志文件不太正常，但是一开始把问题归结同步程序内部代码问题，日志记录也是突然中断，并没有异常抛出。但是还是先去检查同步程序，期间也修复了几个BUG，但是都不是导致它不能稳定运行的原因。</p>
+
+
+
+                        <h3 id="内存泄露爆发前24小时">内存泄露爆发前24小时</h3>
+
+                        <p>问题终于被我的老板捕捉到，系统内存耗光，程序自然就终止了。因为是在早上9点重启同步任务，每分钟运行一次，程序跑到凌晨，因为内存泄露，在凌晨终于耗光了所有内存资源，导致程序终止。第一次碰到内存泄露问题，感觉很棘手。</p>
+
+
+
+                        <h3 id="内存泄露解决前2小时">内存泄露解决前2小时</h3>
+
+                        <p>善用搜索，找出导致内存泄露的原因。因为是用Python写的同步程序，所以指定Python内存泄露搜索即可。Pythonn是用垃圾回收机制的，它最主要的部分是通过引用计数来实现，一块内存，被一个变量引用一次就加一，当这块内存的引用计数为0时，即表示没有任何变量再引用它，它就会被Python的垃圾回收工人回收，也就是内存释放。所以反过来，当你的Python程序发生额内存泄露问题是，可以肯定是某些使用了大块内存的对象的引用计数不为0，导致Python没有回收这个资源，造成了内存的长期占有，时间越久，导致可用的内存越来越少。终于造成之后的程序无内存可用的情况。因为Python不需要手动释放内存，导致用Python的人对内存管理的疏忽和错误理解。今天就通过这个问题，初步的了解到了Python的内存管理。</p>
+
+
+
+                        <h4 id="造成python内存泄露的原因">造成Python内存泄露的原因</h4>
+
+                        <ol start="1"><li rel="1">错误使用list和dict</li>
+                        </ol>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs python"><div class="hljs-line"><span class="hljs-meta">&gt;&gt;</span>&gt; a = []
+                        </div><div class="hljs-line"><span class="hljs-meta">&gt;&gt;</span>&gt; <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span></span>:
+                        </div><div class="hljs-line">...     aa = []
+                        </div><div class="hljs-line">...     <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
+                        </div><div class="hljs-line">...             a.append(i)
+                        </div><div class="hljs-line">...
+                        </div><div class="hljs-line"><span class="hljs-meta">&gt;&gt;</span>&gt; a
+                        </div><div class="hljs-line">[]
+                        </div><div class="hljs-line"><span class="hljs-meta">&gt;&gt;</span>&gt; foo()
+                        </div><div class="hljs-line"><span class="hljs-meta">&gt;&gt;</span>&gt; a
+                        </div><div class="hljs-line">[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]
+                        </div></code></pre>
+
+                        <p>本来是想往aa列表添加数据，结果错误的使用了a列表，导致每次调用foo都会往a列表添加数据，造成a越来越大，这个a又因为一直需要用到，导致没有被垃圾回收，最终造成内存泄露，当然这只是个例子。这种情况通常在程序测试的时候就会发现。它有很多变种，复杂的情况也有。目前我没有遇到。</p>
+
+                        <ol start="2"><li rel="2">对象的循环引用 <br>
+                        先推荐一篇博客，<em>weakref-Garbage-Collectable References to Object</em>，主要讲述Python的弱引用和gc机制，当然它也描述了对象的循环引用问题。这里以代码为例：</li>
+                        </ol>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs ruby"><div class="hljs-line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span>(<span class="hljs-title">objet</span>):</span>
+                        </div><div class="hljs-line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, name)</span></span>:
+                        </div><div class="hljs-line">        <span class="hljs-keyword">self</span>.name = name
+                        </div><div class="hljs-line">        <span class="hljs-keyword">self</span>.other = other
+                        </div><div class="hljs-line">
+                        </div><div class="hljs-line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_next</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, other)</span></span>:
+                        </div><div class="hljs-line">        <span class="hljs-keyword">self</span>.other = other
+                        </div><div class="hljs-line">
+                        </div><div class="hljs-line">a = A(<span class="hljs-string">'a'</span>)
+                        </div><div class="hljs-line">b = A(<span class="hljs-string">'b'</span>)
+                        </div><div class="hljs-line">c = A(<span class="hljs-string">'c'</span>)
+                        </div><div class="hljs-line">a.set_next(b)
+                        </div><div class="hljs-line">b.set_next(c)
+                        </div><div class="hljs-line">c.set_next(a)
+                        </div></code></pre>
+
+                        <p>上面的代码演示了a,b,c三个对象循环用的情况，</p>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs stylus"><div class="hljs-line"><span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.other</span> = <span class="hljs-selector-tag">b</span>
+                        </div><div class="hljs-line"><span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.other</span> = c
+                        </div><div class="hljs-line">c<span class="hljs-selector-class">.other</span> = <span class="hljs-selector-tag">a</span>
+                        </div><div class="hljs-line">它们的图如： a-&gt;b-&gt;c-<span class="hljs-selector-tag">a</span>, b-&gt;c-&gt;a-&gt;<span class="hljs-selector-tag">b</span>, c-&gt;a-&gt;b-&gt;c
+                        </div></code></pre>
+
+                        <p>删除a对象，b和c还保存着a的引用，删除a对象充当手动释放资源，垃圾回收机制是根据这个操作把引用计数减一，操作结果如下：</p>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs stylus"><div class="hljs-line">&gt;&gt;&gt; <span class="hljs-selector-tag">a</span>
+                        </div><div class="hljs-line">&lt;__main__<span class="hljs-selector-class">.A</span> <span class="hljs-selector-tag">object</span> at <span class="hljs-number">0</span>x0000000002952390&gt;
+                        </div><div class="hljs-line">&gt;&gt;&gt; <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.other</span>
+                        </div><div class="hljs-line">&lt;__main__<span class="hljs-selector-class">.A</span> <span class="hljs-selector-tag">object</span> at <span class="hljs-number">0</span>x0000000002961AC8&gt;
+                        </div><div class="hljs-line">&gt;&gt;&gt; <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.other</span><span class="hljs-selector-class">.name</span>
+                        </div><div class="hljs-line"><span class="hljs-string">'b'</span>
+                        </div><div class="hljs-line">&gt;&gt;&gt; <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.other</span><span class="hljs-selector-class">.other</span><span class="hljs-selector-class">.name</span>
+                        </div><div class="hljs-line"><span class="hljs-string">'c'</span>
+                        </div><div class="hljs-line">&gt;&gt;&gt; <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.other</span><span class="hljs-selector-class">.other</span><span class="hljs-selector-class">.other</span><span class="hljs-selector-class">.name</span>
+                        </div><div class="hljs-line"><span class="hljs-string">'a'</span>
+                        </div><div class="hljs-line">&gt;&gt;&gt; <span class="hljs-selector-tag">del</span> <span class="hljs-selector-tag">a</span>
+                        </div><div class="hljs-line">&gt;&gt;&gt; <span class="hljs-selector-tag">a</span>
+                        </div><div class="hljs-line">Traceback (most recent call last):
+                        </div><div class="hljs-line">  File <span class="hljs-string">"&lt;stdin&gt;"</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;
+                        </div><div class="hljs-line">NameError: name <span class="hljs-string">'a'</span> is not defined
+                        </div><div class="hljs-line">&gt;&gt;&gt; <span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.other</span><span class="hljs-selector-class">.name</span>
+                        </div><div class="hljs-line"><span class="hljs-string">'c'</span>
+                        </div><div class="hljs-line">&gt;&gt;&gt; <span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.other</span><span class="hljs-selector-class">.other</span><span class="hljs-selector-class">.name</span>
+                        </div><div class="hljs-line"><span class="hljs-string">'a'</span>
+                        </div><div class="hljs-line">&gt;&gt;&gt; <span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.other</span><span class="hljs-selector-class">.other</span>
+                        </div><div class="hljs-line">&lt;__main__<span class="hljs-selector-class">.A</span> <span class="hljs-selector-tag">object</span> at <span class="hljs-number">0</span>x0000000002952390&gt;
+                        </div></code></pre>
+
+                        <p>最后的输出证明，你把a删除了，但是b还保留着对a的引用，所以你还可以访问到a，这个也证明，你再删除b，c还保留a和b的引用， <br>
+                        删除c呢？是否a、b、c的都回收了呢？没有，只是被悬空了，a、b、c的引用计数并没有归0，垃圾回收器不能回收a、b、c的资源，所有造成了内存泄露，更详细和具体的讲解在之前推荐的博客里，直接搜索文章名即可，需要翻墙。</p>
+
+                        <p>可能还有其他的原因造成内存泄露，因为还未接触过，所以不在这赘述。</p>
+
+                        <h3 id="内存泄露解决前1小时">内存泄露解决前1小时</h3>
+
+                        <p>知道程序内存泄露只是第一步，接下来要做的是定位到具体的代码，哪一行的代码导致了内存泄露。如果只是单个文件的脚本文件，通常只需要根据前面两个内存泄露的原因排查一遍，基本可以解决问题所在。如果是比较大型的程序，需要借助内存泄露查找工具，我这里不推荐 <br>
+                        哪一款，搜索找到合适的工具是你自己需要根据实际情况来判断的。有些工具好用但是安装麻烦，有些内存工具需要侵入程序里面打断点。因为时间紧凑，我先使用了一款安装简便，使用极简的内存泄露查找工具<a href="http://mg.pov.lt/objgraph/" target="_blank">objgraph</a>，使用非常简单，如：</p>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs stylus"><div class="hljs-line"><span class="hljs-function"><span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+                        </div><div class="hljs-line">objgraph.show_growth(limit=<span class="hljs-number">10</span>)
+                        </div></code></pre>
+
+                        <p>只需要在你的程序入口函数（通常也是第一个调用的方法或一块代码行）的后面加上一行代码<code>objgraph.show_growth(limit=10)</code> <br>
+                        它会打印出：程序每次运行至结束，对象引用计数增加个数前十的排行。</p>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs lsl"><div class="hljs-line">tuple                  <span class="hljs-number">5228</span>     +<span class="hljs-number">5228</span>
+                        </div><div class="hljs-line">function               <span class="hljs-number">1330</span>     +<span class="hljs-number">1330</span>
+                        </div><div class="hljs-line">wrapper_descriptor      <span class="hljs-number">967</span>      +<span class="hljs-number">967</span>
+                        </div></code></pre>
+
+                        <p>上面的就是，它表示tuple类型的对象初期被引用了5228次，但是一次运行完成之后，这些引用并没有减少，还保留着5228次引用，也就表明tuple类型的对象造成了内存泄露，这个时候你就可以专注查找tuple类型对象，objgraph对于大型程序和使用太多第三方库的程序可能并不是那么管用，但是就其简单使用的情况，可以迅速的定位一个大概的范围，效率方面是非常值得推荐的。</p>
+
+
+
+                        <h3 id="内存泄露解决">内存泄露解决</h3>
+
+                        <p>只添加了一行代码和运行了多次，问题被定位到一个Python的logging模块的日志处理Handlers对象和Filters对象。 <br>
+                        原因：</p>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs aspectj"><div class="hljs-line">def create_logger(settings=None, install_root_handler=True):
+                        </div><div class="hljs-line"><span class="hljs-keyword">if</span> install_root_handler:
+                        </div><div class="hljs-line">    logging.root.setLevel(logging.NOTSET)
+                        </div><div class="hljs-line">    <span class="hljs-keyword">handler</span> = _get_handler(settings)
+                        </div><div class="hljs-line">    logging.root.addHandler(<span class="hljs-keyword">handler</span>)
+                        </div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">handler</span>
+                        </div></code></pre>
+
+                        <p>每次调用create_logger函数时，都会向logging.root添加一个handler，我本以为程序运行结束，logging.root它会自动释放 <br>
+                        里面的handler，结果它不会，内部有一个dict，不停的往一个只有系统重启才会清空的dict添加对象，造成的了上面内存泄露的第一个原因。因为logging日志模块的使用不当，造成了本次的内存泄露问题。这里返回这个handler，然后程序结束完手动删除即可。</p>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs stylus"><div class="hljs-line">logging<span class="hljs-selector-class">.root</span><span class="hljs-selector-class">.removeHandler</span>(handler)
+                        </div></code></pre>
+
+                        <p>本次内存泄露问题就到此结束了。</p></div>
+                    </div>
+                </div>      
+                </div>
+                </div>
+                <!-- end文章展示版块 -->
+
+                <div class="visible-xs-block visible-sm-block b-hr"></div>
+
+                <!-- 左侧栏归纳模块 -->
+                <div class="col-md-3 col-md-pull-9">
+                    <div class="row b-col-default-indent">
+                        <!-- 文章分类板块 -->
+                        <div class="col-md-12">
+                            <div class="b-categories-filter">
+                                <h4 class="f-primary-b b-h4-special f-h4-special--gray f-h4-special">博客系列</h4>
+                                <ul>
+                                    <li>
+                                        <a class="f-categories-filter_name" href="#"><i class="fa fa-plus"></i> Python第三方库</a>
+                                        <span class="b-categories-filter_count f-categories-filter_count" id="python_3">1</span>
+                                    </li>
+                                    <li>
+                                        <a class="f-categories-filter_name" href="#"><i class="fa fa-plus"></i> 日常问题</a>
+                                        <span class="b-categories-filter_count f-categories-filter_count" id="normal_qa">1</span>
+                                    </li>
+                                    <li>
+                                        <a class="f-categories-filter_name" href="#"><i class="fa fa-plus"></i> Python系统</a>
+                                        <span class="b-categories-filter_count f-categories-filter_count" id="python">1</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- end文章分类板块 -->
+                        <!-- 最新文章板块 -->
+                        <div class="col-md-12">
+                            <h4 class="f-primary-b b-h4-special  f-h4-special--gray f-h4-special">最新文章</h4>
+                            <div class="b-blog-short-post b-blog-short-post--img-hover-bordered b-blog-short-post--w-img f-blog-short-post--w-img row">
+                                <div class="b-blog-short-post b-blog-short-post--img-hover-bordered b-blog-short-post--w-img f-blog-short-post--w-img row">
+                                    <div class="b-blog-short-post--popular col-md-12  col-xs-12 f-primary-b">
+                                        <div class="b-blog-short-post__item_img">
+                                            <a href="#"><img data-retina src="img/gallery/sm/gallery_1.jpg" alt=""/></a>
+                                        </div>
+                                        <div class="b-remaining">
+                                            <div class="b-blog-short-post__item_text f-blog-short-post__item_text">
+                                                <a href="#">Python内存泄露问题</a>
+                                            </div>
+                                            <div class="b-blog-short-post__item_date f-blog-short-post__item_date f-primary-it">
+                                                2017-11-08
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="b-blog-short-post--popular col-md-12  col-xs-12 f-primary-b">
+                                        <div class="b-blog-short-post__item_img">
+                                            <a href="#"><img data-retina src="img/gallery/sm/gallery_2.jpg" alt=""/></a>
+                                        </div>
+                                        <div class="b-remaining">
+                                            <div class="b-blog-short-post__item_text f-blog-short-post__item_text">
+                                                <a href="#">Python安装cx_Oracle问题一览</a>
+                                            </div>
+                                            <div class="b-blog-short-post__item_date f-blog-short-post__item_date f-primary-it">
+                                                2017-11-05
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="b-blog-short-post--popular col-md-12  col-xs-12 f-primary-b">
+                                        <div class="b-blog-short-post__item_img">
+                                            <a href="#"><img data-retina src="img/gallery/sm/gallery_2.jpg" alt=""/></a>
+                                        </div>
+                                        <div class="b-remaining">
+                                            <div class="b-blog-short-post__item_text f-blog-short-post__item_text">
+                                                <a href="#">Centos6下升级Python到2.7极简过程</a>
+                                            </div>
+                                            <div class="b-blog-short-post__item_date f-blog-short-post__item_date f-primary-it">
+                                                2017-11-04
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end最新文章板块 -->
+                        <!-- 标签词云模块 -->
+                        <div class="col-md-12">
+                            <h4 class="f-primary-b b-h4-special f-h4-special--gray f-h4-special">标签 词云</h4>
+                            <div>
+                                <a class="f-tag b-tag" href="#">python</a>
+                                <a class="f-tag b-tag" href="#">cx_Oracle</a>
+                                <a class="f-tag b-tag" href="#">Centos</a>
+                            </div>
+                        </div>
+                        <!-- end标签词云模块 -->
+                    </div> 
+                </div>
+                <!-- end左侧栏归纳模块 -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 页面底部模块 -->
+<footer>
+    <div class="container">
+        <div class="b-footer-secondary row">
+            <div class="col-md-4 col-sm-12 col-xs-12 f-center b-footer-logo-containter">
+                <div class="b-footer-logo-text f-footer-logo-text">
+                    <p>我</p>
+                    <div class="b-btn-group-hor f-btn-group-hor">
+                        <a href="#" class="b-btn-group-hor__item f-btn-group-hor__item"><i class="fa fa-twitter">E</i></a>
+                        <a href="#" class="b-btn-group-hor__item f-btn-group-hor__item"><i class="fa fa-facebook">D</i></a>
+                        <a href="#" class="b-btn-group-hor__item f-btn-group-hor__item"><i class="fa fa-dribbble">P</i></a>
+                        <a href="#" class="b-btn-group-hor__item f-btn-group-hor__item"><i class="fa fa-behance">Z</i></a>
+                        <a href="#" class="b-btn-group-hor__item f-btn-group-hor__item"><i class="fa fa-behance">O</i></a>
+                        <a href="#" class="b-btn-group-hor__item f-btn-group-hor__item"><i class="fa fa-behance">U</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <h4 class="f-primary-b">常逛网站</h4>
+                    <div class="b-blog-short-post row">
+                    <div class="b-blog-short-post__item col-md-12 col-sm-4 col-xs-12 f-primary-b">
+                        <div class="b-blog-short-post__item_text f-blog-short-post__item_text">
+                            <a href="https://github.com">github</a>
+                        </div>
+                    </div>
+                    <div class="b-blog-short-post__item col-md-12 col-sm-4 col-xs-12 f-primary-b">
+                        <div class="b-blog-short-post__item_text f-blog-short-post__item_text">
+                            <a href="https://segmentfault.com/">segmentfault</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <h4 class="f-primary-b">联系我</h4>
+                <div class="b-contacts-short-item-group">
+                    <div class="b-contacts-short-item col-md-12 col-sm-4 col-xs-12">
+                        <div class="b-contacts-short-item__icon f-contacts-short-item__icon b-left f-contacts-short-item__icon_xs">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <div class="b-remaining f-contacts-short-item__text f-contacts-short-item__text_email">
+                            <a href="mailto:frexystudio@gmail.com">xiaoshengzou@163.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end页面底部模块 -->
+
+<!-- js模块 -->
+<script src="js/jquery/jquery-1.11.1.min.js"></script>
+<!-- bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- end bootstrap -->
+<!-- Modules -->
+<script src="js/modules/color-themes.js"></script>
+<!-- End Modules -->
+<script src="js/cookie.js"></script>
+<!-- endjs模块 -->
+<!-- config -->
+<script src="js/config.js"></script>
+<!-- endconfig -->
+</body>
+</html>

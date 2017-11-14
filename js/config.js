@@ -1,7 +1,7 @@
 var config = {
 	'python_3': 1,
 	'normal_qa': 1,
-	'python': 10
+	'python': 1
 }
 
 function set_blog_info() {

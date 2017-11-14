@@ -2,15 +2,17 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Edpzou</title>
+<title>Centos6下升级Python到2.7极简过程</title>
 <link rel="shortcut icon" href="favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- Bootstrap css -->
 <link type="text/css" rel='stylesheet' href="css/bootstrap.min.css">
 <!-- End Bootstrap css -->
+<!-- 马克飞象 -->
+<link href='css/mark.css' rel='stylesheet'>
+<!-- end马克飞象 -->
 <link type="text/css" data-themecolor="default" rel='stylesheet' href="css/main-default.css">
-
 </head>
 <body>
 <div class="mask-l" style="background-color: #fff; width: 100%; height: 100%; position: fixed; top: 0; left:0; z-index: 9999999;"></div>
@@ -24,7 +26,7 @@
             <nav class="b-top-nav f-top-nav b-right j-top-nav">
                 <ul class="b-top-nav__1level_wrap">
                     <li class="b-top-nav__1level f-top-nav__1level is-active-top-nav__1level f-primary-b">
-                        <a href="#"><i class="fa fa-home b-menu-1level-ico"></i>首页 
+                        <a href="index.html"><i class="fa fa-home b-menu-1level-ico"></i>首页 
                             <span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span>
                         </a>  
                     </li>
@@ -47,13 +49,13 @@
 </header>
 <!-- end页面导航栏模块 -->
 
-<div class="j-menu-container"></div>
-
+<!-- <div class="j-menu-container"></div>
+ -->
 <!-- 页面标题模块 -->
 <div class="b-inner-page-header f-inner-page-header">
   <div class="b-inner-page-header__content">
     <div class="container">
-      <h1 class="f-primary-l c-default">我热爱Python正如我热爱人生</h1>
+      <h1 class="f-primary-l c-default">Centos6下升级Python到2.7极简过程</h1>
     </div>
   </div>
 </div>
@@ -70,40 +72,6 @@
                     <div class="b-blog-listing__block">
                     <!-- 头部图片 -->
                     <div class="b-blog-listing__block-top">
-                        <div class=" view view-sixth">
-                          <img data-retina="" src="img/blog/blog_listing.jpg" alt="">
-                        </div>
-                    </div>
-                    <!-- end头部图片 -->
-                    <div class="b-infoblock-with-icon b-blog-listing__infoblock">
-                      <a href="#" class="b-infoblock-with-icon__icon f-infoblock-with-icon__icon fade-in-animate hidden-xs">
-                          <i class="fa fa-pencil"></i>
-                      </a>
-                      <div class="b-infoblock-with-icon__info f-infoblock-with-icon__info">
-                        <a href="#" class="f-infoblock-with-icon__info_title b-infoblock-with-icon__info_title f-primary-l b-title-b-hr f-title-b-hr">
-                            Python下安装cx_Oracle问题一览
-                        </a>
-                        <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text f-primary-b b-blog-listing__pretitle">
-                              作者 <a href="#" class="f-more">Edpzou</a> 标签 <a href="#" class="f-more">Python第三方库</a>, <a href="#" class="f-more">写于</a> 2017-11-05
-                        </div>
-                        <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text c-primary b-blog-listing__text">
-                            cx_Oracle是一个Python扩展模块，可以访问Oracle数据库。 它符合Python数据库API 2.0规范，有相当多的附加条款和一些排除条款。本文主要介绍如何安装cx_Oracle，快速正确的安装能够
-                            节省很多时间，并且探讨在安装过程中遇到的问题。
-                        </div>
-                        <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text">
-                            <a href="post20171105.html" class="f-more f-primary-b">继续阅读...</a>
-                        </div>
-                      </div>
-                    </div>      
-                  </div>
-                <!-- end文章1入口 -->
-                <!-- 文章2入口 -->
-                    <div class="b-blog-listing__block">
-                    <!-- 头部图片 -->
-                    <div class="b-blog-listing__block-top">
-                        <div class=" view view-sixth">
-                          <img data-retina="" src="img/blog/20171105.jpg" alt="">
-                        </div>
                     </div>
                     <!-- end头部图片 -->
                     <div class="b-infoblock-with-icon b-blog-listing__infoblock">
@@ -117,17 +85,87 @@
                         <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text f-primary-b b-blog-listing__pretitle">
                               作者 <a href="#" class="f-more">Edpzou</a> 标签 <a href="#" class="f-more">Python系统</a>, <a href="#" class="f-more">写于</a> 2017-11-05
                         </div>
-                        <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text c-primary b-blog-listing__text">
-                            Centos6下自带的Python是2.6版本的，由于Python版本变化巨大，老的版本已经渐渐不再被支持，大多第三方库已经开始以Python3为目标。Python2目前只保留对2.7版本的支持，2.7版本以前的大多存在兼容性问题。服务器的操作系统基本以Centos6为主，部署代码基本上是要对Python进行升级，所以本文介绍了从Python2.6升级到Python2.7极简过程。
-                        </div>
-                        <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text">
-                            <a href="post201711051.html" class="f-more f-primary-b">继续阅读...</a>
-                        </div>
-                      </div>
-                    </div>      
-                  </div>
-                <!-- end文章2入口 -->
-                    
+                        <div id='preview-contents' class='note-content'>
+                        <p>1.创建一个文件夹，用于存放Python的安装包，我们通过下载安装包升级</p>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs vim"><div class="hljs-line">$ <span class="hljs-built_in">mkdir</span> /<span class="hljs-keyword">opt</span>/<span class="hljs-keyword">python</span>
+                        </div><div class="hljs-line">$ <span class="hljs-keyword">cd</span> /<span class="hljs-keyword">opt</span>/pyhton
+                        </div><div class="hljs-line">$ wget http://www.<span class="hljs-keyword">python</span>.org/ftp/<span class="hljs-keyword">python</span>/<span class="hljs-number">2.7</span>.<span class="hljs-number">10</span>/Python-<span class="hljs-number">2.7</span>.<span class="hljs-number">10</span>.tar.xz //网址可以自己去官网选择自己想安装的<span class="hljs-keyword">python</span>版本
+                        </div><div class="hljs-line">$ unzip Python-<span class="hljs-number">2.7</span>.<span class="hljs-number">10</span>.tar.xz
+                        </div><div class="hljs-line">$ tar -vxf Python-<span class="hljs-number">2.7</span>.<span class="hljs-number">10</span>.tar //解压Python安装包
+                        </div><div class="hljs-line">$ <span class="hljs-keyword">cd</span> Python-<span class="hljs-number">2.7</span>.<span class="hljs-number">10</span>
+                        </div></code></pre>
+
+                        <ul><li>进入Python文件夹后，对其进行编译配置，–enable-shared这个参数很重要，它决定后续是否能顺利升级， <br>
+                        –enable-loadable-sqlite-extensions这个参数是sqlite的扩展，它作为一个文件数据库，以后需要用到，最好带上 <br>
+                        可以省去以后很多事。</li>
+                        </ul>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs brainfuck"><div class="hljs-line"><span class="hljs-comment">$</span> <span class="hljs-string">.</span><span class="hljs-comment">/configure</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">enable</span><span class="hljs-literal">-</span><span class="hljs-comment">shared</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">enable</span><span class="hljs-literal">-</span><span class="hljs-comment">loadable</span><span class="hljs-literal">-</span><span class="hljs-comment">sqlite</span><span class="hljs-literal">-</span><span class="hljs-comment">extensions</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">with</span><span class="hljs-literal">-</span><span class="hljs-comment">zlib</span>
+                        </div></code></pre>
+
+                        <ul><li>之后执行</li>
+                        </ul>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs awk"><div class="hljs-line">$ vi .<span class="hljs-regexp">/Modules/</span>Setup
+                        </div></code></pre>
+
+                        <ul><li>找到下面这行注释，把前面的#号去掉，然后保存退出</li>
+                        </ul>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs stylus"><div class="hljs-line"><span class="hljs-selector-id">#zlib</span> zlibmodule<span class="hljs-selector-class">.c</span> -I$(prefix)/include -L$(exec_prefix)/lib -lz
+                        </div></code></pre>
+
+                        <ul><li>然后进行编译和安装</li>
+                        </ul>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs gauss"><div class="hljs-line">$ <span class="hljs-built_in">make</span> &amp;&amp; <span class="hljs-built_in">make</span> install
+                        </div></code></pre>
+
+                        <ul><li>编译成功之后，我们需要把之前的Python2.6版备份，备份的主要目的是之前安装的软件有依赖关系，如yum，不备份使用不了。 <br>
+                        执行以下命令，对Python2.6进行备份，然后为Python2.7创建软链接</li>
+                        </ul>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs awk"><div class="hljs-line">$ mv <span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/python /u</span>sr<span class="hljs-regexp">/bin/</span>python2.<span class="hljs-number">6.6</span>
+                        </div><div class="hljs-line">$ ln -s <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/bin/</span>python2.<span class="hljs-number">7</span> <span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/python</span>
+                        </div></code></pre>
+
+                        <ul><li>接下来修改yum的配置文件，将第一行的 <code>#!/usr/bin/python</code> 修改成 <code>#!/usr/bin/python2.6.6</code></li>
+                        </ul>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs armasm"><div class="hljs-line">$ vim /usr/<span class="hljs-keyword">bin/yum </span>
+                        </div></code></pre>
+
+                        <ul><li><p>可以测试一下yum是否可以正常使用，yum –help，没有错误即可正常使用。</p></li>
+                        <li><p>然后测试下Python是否成功，显示Python2.7的版本，Python -V，有可能会出现个错误</p></li>
+                        </ul>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs subunit"><div class="hljs-line"><span class="hljs-keyword">error </span>while loading shared libraries: libpython2.7.so.1.0: cannot open shared object file:
+                        </div><div class="hljs-line">No such file or directory
+                        </div></code></pre>
+
+                        <ul><li>解决办法(2种) <br>
+                        <ol>
+                        <li rel="1"><code>vim /etc/ld.so.conf</code> 添加新的一行内容/usr/local/lib，保存退出，然后</li></ol></li>
+                        </ul>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs awk"><div class="hljs-line">$ <span class="hljs-regexp">/sbin/</span>ldconfig  
+                        </div><div class="hljs-line">$ <span class="hljs-regexp">/sbin/</span>ldconfig -v
+                        </div></code></pre>
+
+                        <ol start="2"><li rel="2">whereis libpython2.7.so.1.0，找到这个文件，我的是在/usr/local/bin 目录下，</li>
+                        </ol>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs lsl"><div class="hljs-line">$ /usr/local/bin/libpython2<span class="hljs-number">.7</span>.so<span class="hljs-number">.1</span><span class="hljs-number">.0</span>
+                        </div><div class="hljs-line">$ cp /usr/local/bin/libpython2<span class="hljs-number">.7</span>.so<span class="hljs-number">.1</span><span class="hljs-number">.0</span> /usr/bin64(<span class="hljs-number">64</span>位，<span class="hljs-number">32</span>位的去掉<span class="hljs-number">64</span>即可)
+                        </div></code></pre>
+
+                        <p>至此，Python升级完毕。 </p>
+                    </div>
+                    </div>
+                </div>      
+                </div>
+                <!-- end文章1入口 -->
                 </div>
                 <!-- end文章展示版块 -->
 
@@ -273,13 +311,13 @@
 <!-- end页面底部模块 -->
 
 <!-- js模块 -->
-
 <script src="js/jquery/jquery-1.11.1.min.js"></script>
 <!-- bootstrap -->
 <script src="js/bootstrap.min.js"></script>
 <!-- end bootstrap -->
 <!-- Modules -->
 <script src="js/modules/color-themes.js"></script>
+<!-- End Modules -->
 <script src="js/cookie.js"></script>
 <!-- endjs模块 -->
 <!-- config -->

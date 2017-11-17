@@ -1,13 +1,18 @@
 var config = {
 	'python_3': 1,
 	'normal_qa': 1,
-	'python': 1
+	'python': 2
 }
 
-var word_cloud = ['python', 'cx_Oracle', 'Centos']
+var word_cloud = ['python', 'cx_Oracle', 'Centos', 'Decorator']
 
 var recently_post = [
 	{
+		'href': 'post20171117.html',
+		'title': 'Python之装饰器详解',
+		'date': '2017-11-17',
+		'img': 'img/gallery/sm/gallery_4.jpg'
+	},{
 		'href': 'post20171108.html',
 		'title': 'Python内存泄露问题',
 		'date': '2017-11-08',

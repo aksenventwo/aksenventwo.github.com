@@ -1,13 +1,18 @@
 var config = {
 	'python_3': 1,
-	'normal_qa': 1,
+	'normal_qa': 2,
 	'python': 2
 }
 
-var word_cloud = ['python', 'cx_Oracle', 'Centos', 'Decorator']
+var word_cloud = ['python', 'cx_Oracle', 'Centos', 'Decorator', 'SQLALchemy']
 
 var recently_post = [
 	{
+		'href': 'post20180102.html',
+		'title': 'SQLALchemy联合主键的用法',
+		'date': '2018-01-02',
+		'img': 'img/gallery/sm/gallery_5.jpg'
+	},{
 		'href': 'post20171117.html',
 		'title': 'Python之装饰器详解',
 		'date': '2017-11-17',

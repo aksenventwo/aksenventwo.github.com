@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>SQLALchemy联合主键的用法</title>
+<link rel="shortcut icon" href="favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<!-- Bootstrap css -->
+<link type="text/css" rel='stylesheet' href="css/bootstrap.min.css">
+<!-- End Bootstrap css -->
+<!-- 马克飞象 -->
+<link href='css/mark.css' rel='stylesheet'>
+<!-- end马克飞象 -->
+<link type="text/css" data-themecolor="default" rel='stylesheet' href="css/main-default.css">
+</head>
+<body>
+<div class="mask-l" style="background-color: #fff; width: 100%; height: 100%; position: fixed; top: 0; left:0; z-index: 9999999;"></div>
+<!-- 页面导航栏模块 -->
+<header>
+    <div class="container b-header__box b-relative">
+        <div class="b-header-r b-right b-header-r--icon">
+            <div class="b-top-nav-show-slide f-top-nav-show-slide b-right j-top-nav-show-slide">
+                <i class="fa fa-align-justify"></i>
+            </div>
+            <nav class="b-top-nav f-top-nav b-right j-top-nav">
+                <ul class="b-top-nav__1level_wrap">
+                    <li class="b-top-nav__1level f-top-nav__1level is-active-top-nav__1level f-primary-b">
+                        <a href="index.html"><i class="fa fa-home b-menu-1level-ico"></i>首页
+                            <span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="b-top-nav__1level f-top-nav__1level f-primary-b">
+                        <a href="#"><i class="fa fa-code b-menu-1level-ico"></i>博客文章列表
+                            <span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="b-top-nav__1level f-top-nav__1level f-primary-b">
+                        <a href="#"><i class="fa fa-folder-open b-menu-1level-ico"></i>联系我
+                            <span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<!-- end页面导航栏模块 -->
+
+<!-- <div class="j-menu-container"></div>
+ -->
+<!-- 页面标题模块 -->
+<div class="b-inner-page-header f-inner-page-header">
+  <div class="b-inner-page-header__content">
+    <div class="container">
+      <h1 class="f-primary-l c-default">SQLALchemy联合主键的用法</h1>
+    </div>
+  </div>
+</div>
+<!-- end页面标题模块 -->
+
+<!-- 页面内容模块 -->
+<div class="l-main-container">
+    <div class="l-inner-page-container">
+        <div class="container">
+            <div class="row">
+                <!-- 文章展示版块 -->
+                <div class="col-md-9 col-md-push-3">
+                    <div class="b-blog-listing__block">
+                    <!-- 头部图片 -->
+                    <div class="b-blog-listing__block-top">
+                    </div>
+                    <!-- end头部图片 -->
+                    <div class="b-infoblock-with-icon b-blog-listing__infoblock">
+                      <a href="#" class="b-infoblock-with-icon__icon f-infoblock-with-icon__icon fade-in-animate hidden-xs">
+                          <i class="fa fa-pencil"></i>
+                      </a>
+                      <div class="b-infoblock-with-icon__info f-infoblock-with-icon__info">
+                        <a href="#" class="f-infoblock-with-icon__info_title b-infoblock-with-icon__info_title f-primary-l b-title-b-hr f-title-b-hr">
+                            SQLALchemy联合主键的用法
+                        </a>
+                        <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text f-primary-b b-blog-listing__pretitle">
+                              作者 <a href="#" class="f-more">Edpzou</a> 标签 <a href="#" class="f-more">日常问题</a>, <a href="#" class="f-more">写于</a> 2017-11-17
+                        </div>
+                        <div id='preview-contents' class='note-content'>
+                        <h4 id="sqlalchemy数据模型联合主键使用方法">SQLAlchemy数据模型联合主键使用方法</h4>
+
+                        <p>我们常用的数据模型结构如下(习惯了Falsk-sqlalchemy的写法，以下例子皆是Flask-sqlalchemy的写法)：</p>
+                        <pre class="prettyprint hljs-dark"><code class="hljs ruby"><div class="hljs-line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span>(<span class="hljs-title">db</span>.<span class="hljs-title">Model</span>):</span>
+                        </div><div class="hljs-line">    __tablename_<span class="hljs-number">_</span> = <span class="hljs-string">'users'</span>
+                        </div><div class="hljs-line">
+                        </div><div class="hljs-line">    id = db.Column(db.Integer, primary_key=True)
+                        </div><div class="hljs-line">    username = db.Column(db.String(<span class="hljs-number">80</span>), unique=True)
+                        </div><div class="hljs-line">    email = db.Column(db.String(<span class="hljs-number">120</span>), unique=True)
+                        </div><div class="hljs-line">
+                        </div><div class="hljs-line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, username, email)</span></span>:
+                        </div><div class="hljs-line">        <span class="hljs-keyword">self</span>.username = username
+                        </div><div class="hljs-line">        <span class="hljs-keyword">self</span>.email = email
+                        </div><div class="hljs-line">
+                        </div><div class="hljs-line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span>:
+                        </div><div class="hljs-line">        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;User %r&gt;'</span> % <span class="hljs-keyword">self</span>.username
+                        </div></code></pre>
+
+                        <p>一眼可以看出这个用户模型在数据库中只用一个主键id，和两个唯一性约束。这是官网上的例子，是最基本的用法。然而在生产环境中使SQLAlchemy，并没有这么简单。</p>
+
+                        <p>现有一个表，它不止有一个主键，在数据库上的说法是联合主键，先有一个表结构如下：</p>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs sql"><div class="hljs-line"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">test</span>(
+                        </div><div class="hljs-line">    <span class="hljs-keyword">id</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">36</span>),
+                        </div><div class="hljs-line">    ctime <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">14</span>)
+                        </div><div class="hljs-line">    <span class="hljs-keyword">value</span> <span class="hljs-built_in">INT</span>
+                        </div><div class="hljs-line">    primary <span class="hljs-keyword">key</span> (<span class="hljs-keyword">id</span>, ctime)
+                        </div><div class="hljs-line">)
+                        </div></code></pre>
+
+                        <p>上面的表结构有两个主键id和ctime，那么这张表映射到SQLAlchemy上是如何写呢？ <br>
+                        我第一次没有看文档，写的结构如下：</p>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs stata"><div class="hljs-line"><span class="hljs-keyword">class</span> <span class="hljs-keyword">Test</span>(<span class="hljs-keyword">db</span>.Model):
+                        </div><div class="hljs-line">    __tablename__ = '<span class="hljs-keyword">test</span>'
+                        </div><div class="hljs-line">
+                        </div><div class="hljs-line">    id = <span class="hljs-keyword">db</span>.Column(<span class="hljs-keyword">db</span>.<span class="hljs-built_in">String</span>(36), primary_key=True)
+                        </div><div class="hljs-line">    ctime = <span class="hljs-keyword">db</span>.Column(<span class="hljs-keyword">db</span>.<span class="hljs-built_in">String</span>(14), primary_key=True)
+                        </div><div class="hljs-line">    value = <span class="hljs-keyword">db</span>.Column(<span class="hljs-keyword">db</span>.Integer)
+                        </div><div class="hljs-line">
+                        </div><div class="hljs-line">    def __repr__(self):
+                        </div><div class="hljs-line">        <span class="hljs-keyword">return</span> '&lt;User %r&gt;' % self.value
+                        </div></code></pre>
+
+                        <p>这个写法并不会报什么错，自以为这就是多个主键的写法，并且代码运行一点问题都没有，<strong>直到数据多了之后，同事说数据显示异常，数据库有很多数据，但是页面上只显示几条</strong>。我立马查看应用日志和ajax请求，没有报错信息，一切都很正常。然后把关于这个接口的代码都理一遍，通过注释不相关代码，只保留取数据的代码，结果显示就是这一块出问题，取出的数据数量和在前端显示的数量一致。取数据的代码是采取了Flask-sqlalchemy的分页组件。</p>
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs nix"><div class="hljs-line"><span class="hljs-attr">pagination</span> = query.order_by(Test.id.desc()) \
+                        </div><div class="hljs-line">             .paginate(page, <span class="hljs-attr">per_page=limit,</span> <span class="hljs-attr">error_out=False)</span>
+                        </div></code></pre>
+
+                        <p>这个写法没有问题，问题是这样取出来的数据数量不对，当时我很清楚这个表的结构是有多个主键的，也就是说，问题出在这个分页机制上，直觉告诉我查看它的源码肯定能能知道这个问题的来龙去脉，但是成熟的框架都是层层包装，没有这个时间也没有这个耐心，直接上网根据这个分页主题一搜，先看有没有遇到同样问题的人，再缩小范围，因为这个结构和以前模型的基本一样，除了是联合主键，所以最后搜SQLAlchemy 联合主键写法，答案就会出来了，我之前的联合主键的写法有误，正确的写法还是比较高级的，正确写法如下：</p>
+
+
+
+                        <pre class="prettyprint hljs-dark"><code class="hljs stata"><div class="hljs-line"><span class="hljs-keyword">class</span> <span class="hljs-keyword">Test</span>(<span class="hljs-keyword">db</span>.Model):
+                        </div><div class="hljs-line">    __tablename__ = '<span class="hljs-keyword">test</span>'
+                        </div><div class="hljs-line">    __table_args__ = (
+                        </div><div class="hljs-line">        <span class="hljs-keyword">db</span>.PrimaryKeyConstraint('id', 'ctime'),
+                        </div><div class="hljs-line">    )
+                        </div><div class="hljs-line">
+                        </div><div class="hljs-line">    id = <span class="hljs-keyword">db</span>.Column(<span class="hljs-keyword">db</span>.<span class="hljs-built_in">String</span>(36))
+                        </div><div class="hljs-line">    ctime = <span class="hljs-keyword">db</span>.Column(<span class="hljs-keyword">db</span>.<span class="hljs-built_in">String</span>(14))
+                        </div><div class="hljs-line">    value = <span class="hljs-keyword">db</span>.Column(<span class="hljs-keyword">db</span>.Integer)
+                        </div><div class="hljs-line">
+                        </div><div class="hljs-line">    def __repr__(self):
+                        </div><div class="hljs-line">        <span class="hljs-keyword">return</span> '&lt;User %r&gt;' % self.value
+                        </div></code></pre>
+
+                        <p>按上面的一改，程序就运行正常了，flask-sqlalchemy的文档没有这个说明，估计也是不太常用，应该去直接看SQLALchemy的文档。问题解决，又得到一个教训。</p></div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                <!-- end文章展示版块 -->
+
+                <div class="visible-xs-block visible-sm-block b-hr"></div>
+
+                <!-- 左侧栏归纳模块 -->
+                <div class="col-md-3 col-md-pull-9">
+                    <div class="row b-col-default-indent">
+                        <!-- 文章分类板块 -->
+                        <div class="col-md-12">
+                            <div class="b-categories-filter">
+                                <h4 class="f-primary-b b-h4-special f-h4-special--gray f-h4-special">博客系列</h4>
+                                <ul>
+                                    <li>
+                                        <a class="f-categories-filter_name" href="#"><i class="fa fa-plus"></i> Python第三方库</a>
+                                        <span class="b-categories-filter_count f-categories-filter_count" id="python_3">1</span>
+                                    </li>
+                                    <li>
+                                        <a class="f-categories-filter_name" href="#"><i class="fa fa-plus"></i> 日常问题</a>
+                                        <span class="b-categories-filter_count f-categories-filter_count" id="normal_qa">1</span>
+                                    </li>
+                                    <li>
+                                        <a class="f-categories-filter_name" href="#"><i class="fa fa-plus"></i> Python系统</a>
+                                        <span class="b-categories-filter_count f-categories-filter_count" id="python">1</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- end文章分类板块 -->
+                        <!-- 最新文章板块 -->
+                        <div class="col-md-12">
+                            <h4 class="f-primary-b b-h4-special  f-h4-special--gray f-h4-special">最新文章</h4>
+                            <div class="b-blog-short-post b-blog-short-post--img-hover-bordered b-blog-short-post--w-img f-blog-short-post--w-img row">
+                                <div class="b-blog-short-post b-blog-short-post--img-hover-bordered b-blog-short-post--w-img f-blog-short-post--w-img row" id="recently_post">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end最新文章板块 -->
+                        <!-- 标签词云模块 -->
+                        <div class="col-md-12">
+                            <h4 class="f-primary-b b-h4-special f-h4-special--gray f-h4-special">标签 词云</h4>
+                            <div id="word_cloud"></div>
+                        </div>
+                        <!-- end标签词云模块 -->
+                    </div>
+                </div>
+                <!-- end左侧栏归纳模块 -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 页面底部模块 -->
+<footer>
+    <div class="container">
+        <div class="b-footer-secondary row">
+            <div class="col-md-4 col-sm-12 col-xs-12 f-center b-footer-logo-containter">
+                <div class="b-footer-logo-text f-footer-logo-text">
+                    <p>我</p>
+                    <div class="b-btn-group-hor f-btn-group-hor">
+                        <a href="#" class="b-btn-group-hor__item f-btn-group-hor__item"><i class="fa fa-twitter">E</i></a>
+                        <a href="#" class="b-btn-group-hor__item f-btn-group-hor__item"><i class="fa fa-facebook">D</i></a>
+                        <a href="#" class="b-btn-group-hor__item f-btn-group-hor__item"><i class="fa fa-dribbble">P</i></a>
+                        <a href="#" class="b-btn-group-hor__item f-btn-group-hor__item"><i class="fa fa-behance">Z</i></a>
+                        <a href="#" class="b-btn-group-hor__item f-btn-group-hor__item"><i class="fa fa-behance">O</i></a>
+                        <a href="#" class="b-btn-group-hor__item f-btn-group-hor__item"><i class="fa fa-behance">U</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <h4 class="f-primary-b">常逛网站</h4>
+                    <div class="b-blog-short-post row">
+                    <div class="b-blog-short-post__item col-md-12 col-sm-4 col-xs-12 f-primary-b">
+                        <div class="b-blog-short-post__item_text f-blog-short-post__item_text">
+                            <a href="https://github.com">github</a>
+                        </div>
+                    </div>
+                    <div class="b-blog-short-post__item col-md-12 col-sm-4 col-xs-12 f-primary-b">
+                        <div class="b-blog-short-post__item_text f-blog-short-post__item_text">
+                            <a href="https://segmentfault.com/">segmentfault</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <h4 class="f-primary-b">联系我</h4>
+                <div class="b-contacts-short-item-group">
+                    <div class="b-contacts-short-item col-md-12 col-sm-4 col-xs-12">
+                        <div class="b-contacts-short-item__icon f-contacts-short-item__icon b-left f-contacts-short-item__icon_xs">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <div class="b-remaining f-contacts-short-item__text f-contacts-short-item__text_email">
+                            <a href="mailto:frexystudio@gmail.com">xiaoshengzou@163.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end页面底部模块 -->
+
+<!-- js模块 -->
+<script src="js/jquery/jquery-1.11.1.min.js"></script>
+<!-- bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- end bootstrap -->
+<!-- Modules -->
+<script src="js/modules/color-themes.js"></script>
+<!-- End Modules -->
+<script src="js/cookie.js"></script>
+<!-- endjs模块 -->
+<!-- config -->
+<script src="js/config.js"></script>
+<!-- endconfig -->
+</body>
+</html>

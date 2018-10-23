@@ -327,8 +327,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_3" title="结论" class="md-nav__link">
-    结论
+  <a href="#_3" title="直线运动问题结论" class="md-nav__link">
+    直线运动问题结论
   </a>
   
 </li>
@@ -342,6 +342,40 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="例子结论" class="md-nav__link">
+    例子结论
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" title="定义1" class="md-nav__link">
+    定义1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" title="定义2" class="md-nav__link">
+    定义2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="实例分析" class="md-nav__link">
+    实例分析
+  </a>
   
 </li>
       
@@ -409,8 +443,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_3" title="结论" class="md-nav__link">
-    结论
+  <a href="#_3" title="直线运动问题结论" class="md-nav__link">
+    直线运动问题结论
   </a>
   
 </li>
@@ -424,6 +458,40 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="例子结论" class="md-nav__link">
+    例子结论
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" title="定义1" class="md-nav__link">
+    定义1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" title="定义2" class="md-nav__link">
+    定义2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="实例分析" class="md-nav__link">
+    实例分析
+  </a>
   
 </li>
       
@@ -462,9 +530,52 @@
 <p><img alt="公式4" src="../../../figures/181022_4.png" /></p>
 <p>显然，如果这个极限值存在，那么可以说，这个质点的<code>t₁</code>的瞬时速度就是等于<code>V₁</code>.</p>
 <p><img alt="公式5" src="../../../figures/181022_5.png" /></p>
-<h3 id="_3">结论</h3>
+<h3 id="_3">直线运动问题结论</h3>
 <p>如果物体作非匀速运动，那就可以用平均速度作为它的瞬时速度，条件是∆t趋于0时,这段时间的平均速度极限值存在。</p>
 <h3 id="2">2. 曲线在一点处的切线斜率</h3>
+<p>存在一条曲线，任意取一点P，求点P的切线斜率。</p>
+<p>解：</p>
+<p>​   任意取一点<code>P'</code>,连接点P和<code>P'</code>,构成一条割线<code>PP'</code>，这时，让点<code>P'</code>沿着点P靠近，直线<code>PP'</code>的的极限位置PT称为曲线的切线。</p>
+<p>​   割线：P(x, f(x))，P'(x+∆x, f(x+∆x))</p>
+<p>​   割线斜率：</p>
+<p>​ <br />
+<img alt="公式_1" src="../../../figures/181023_1.png" /></p>
+<p>当P' -&gt; P时，∆x -&gt; 0。要求切线的斜率，我们可以利用割线的极限斜率来代替，极限公式如下:</p>
+<p><img alt="公式_2" src="../../../figures/181023_2.png" /></p>
+<p>这切线PT的斜率:</p>
+<p>​ <br />
+<img alt="公式_3" src="../../../figures/181023_3.png" /></p>
+<p>其中α为为切线PT的倾角。</p>
+<h2 id="_4">例子结论</h2>
+<p>以上两个问题，一个是物理问题，一个是几何问题，它们最终被归纳为求<strong>函数的增量</strong>和<strong>自变量的增量</strong>比的<strong>极限</strong>。因此我们可以抛弃它们本身的实际意义，而得到一个数学的抽象概念，最终我们可以引出导数的数学概念。</p>
+<h3 id="1_1">定义1</h3>
+<p>设 y = f(x)在N(x, ∞)内有定义，当自变量x在x1点有增量∆x，x+∆x在N(x, ∞)有定义，函数 y = f(x)相应的增量为：</p>
+<p>​                               ∆y = f(x1 + ∆x) - f(x1)</p>
+<p>如果极限</p>
+<p><img alt="公式_4" src="../../../figures/181023_4.png" /></p>
+<p>存在，则称 y = f(x)在x1点可导，并称此极限值为y = f(x)在x1点的导数。</p>
+<p>相应的导数函数形式：</p>
+<p><img alt="公式_5" src="../../../figures/181023_5.png" /></p>
+<h3 id="2_1">定义2</h3>
+<p>若 y = f(x)在x1点可导，记为f(x) ∈D{x1}。</p>
+<p>若 y = f(x) 在 (a, b)每一点都可导，则称为 y = f(x) 在 (a, b)内可导，记为 f(x) ∈D(a, b)。</p>
+<p>若 f(x) 在区间A上可导，f(x) ∈D(A)</p>
+<p>若 f(x)在(a, b)内可导，任意x∈D(a, b)都有f'(x)与x对应，由函数定义，可知f'(x)是定义在区间(a, b)上的函数，也称为导数。</p>
+<h2 id="_5">实例分析</h2>
+<p>求函数</p>
+<p><img alt="公式_6" src="../../../figures/181023_6.png" /></p>
+<p>的导函数(x ≠ 0)。</p>
+<p>解：</p>
+<p>​   这个函数的定义域是(-∞, 0)∪(0, +∞)，任取x∈(-∞, 0)∪(0, +∞), 自变量有增量∆x， x+∆x∈(-∞, 0)∪(0, +∞)，</p>
+<p>函数对应的增量：</p>
+<p><img alt="公式_7" src="../../../figures/181023_7.png" /></p>
+<p>作比值：</p>
+<p><img alt="公式_8" src="../../../figures/181023_8.png" /></p>
+<p>求极限：</p>
+<p><img alt="公式_9" src="../../../figures/181023_9.png" /></p>
+<p>得到该函数的导数：
+​
+<img alt="公式_10" src="../../../figures/181023_10.png" /></p>
                 
                   
                 
